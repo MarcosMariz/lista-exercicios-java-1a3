@@ -1,0 +1,35 @@
+/*Dada a seguinte série: 1, 4, 4, 2, 5, 5, 3, 6, 6, 4, 7, 7, . . ., escreva um programa que seja capaz de
+gerar os primeiros n−ésimos termos da mesma. Esse número n deve ser lido do teclado. No
+exemplo citado, n = 4*/
+
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+                System.out.print("Digite o valor do numero de termos: ");
+                int n = scanner.nextInt();// n cai dentro do array para definir a quantidade dos termos
+
+                int[] serie = new int[n];// Foi criado um array para colocar a quantidade de termos a serem aplicados "n"
+                int index = 0;
+
+                for (int i = 1; index < n; i++) { // esse bloco de codigo irá fazer o: x, 4, 4, x ( o numero 4 e 4 )
+                    // Para cada número i, adicionar i duas vezes na série
+                    serie[index++] = i; // Adiciona i na posicão do array e logo após vai para o proximo "n"
+                    if (index < n) {
+                        serie[index++] = i; // Adiciona i na posicão do array e logo após vai para o proximo "n"
+                    }
+
+                    if (i > 1 && index < n) { // Bloco garante que não tentemos adicionar um número negativo
+                        serie[index++] = i - 1; // Adiciona i - 1
+                    }
+                }
+                // Resultados
+                System.out.print("Os primeiros " + n + " termos da série são: ");
+                for (int i = 0; i < n; i++) {
+                    System.out.print(serie[i] + " ");
+                }
+            }
+        }
