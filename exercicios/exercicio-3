@@ -1,0 +1,83 @@
+/*As regras de transição para aposentadoria estão causando muita dúvida e seus amigos pediram
+uma ajuda. Todos eles se encaixam na regra definida a seguir:
+• Regra de transição de pontos - Setor Privado: soma-se o tempo de contribuição
+com a idade, caso atinja a pontuação mínima exigida para o ano em questão, pode se
+aposentar. O cálculo começa no ano de 2019, e a pontuação mínima neste ano é de 96
+pontos para os homens e 86 pontos para as mulheres, e é acrescida de um a cada ano,
+atingindo o máximo de 105 para homens e 100 para mulheres.
+Implemente um programa que realize a simulação do cálculo do ano no qual um amigo poderá
+se aposentar. As entradas para o programa são: sexo (1 - feminino e 2 - masculino), tempo de
+contribuição em 2019 e a idade em 2019. O programa imprime como resultado uma tabela
+com o ano (começando de 2019), a pontuação mínima para o ano e a pontuação obtida no
+ano, encerrando quando a pontuação obtida no ano for igual ou superior à pontuação mínima
+para este mesmo ano. O amigo, em nenhum momento, interrompe sua contribuição, ou seja,
+assim como sua idade, o tempo de contribuição é acrescido de um a cada ano que se passa.
+Observe que a pontuação obtida inicialmente é a idade mais o tempo de contribuição (ambos
+em 2019), e para cada ano seguinte a pontuação obtida é acrescida de 2 (1 pela idade e 1 pela
+contribuição).
+A Figura 1, apresenta um exemplo de saída do programa.*/
+
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int idade;
+        int sexo;
+        int tempo;
+        int pontuacaoMinima = 0; int pontuacaoMaxima = 0;
+                                                      //sexo
+                System.out.println("Digite seu sexo: \n 1 - feminino \n 2 - masculino");
+                sexo = scanner.nextInt();
+            switch (sexo) {
+            case 1: // Feminino
+                pontuacaoMinima = 86;
+                pontuacaoMaxima = 100;
+                break;
+            case 2: // Masculino
+                pontuacaoMinima = 96;
+                pontuacaoMaxima = 105;
+                break;
+            default:
+                System.out.println("Sexo inválido. Informe 1 para feminino ou 2 para masculino.");
+                return; // Finaliza o programa em caso de entrada inválida
+        }
+                                                        //idade
+        System.out.println("Digite sua idade em 2019: ");
+        idade = scanner.nextInt();
+
+                                                //tempo de contribuição
+        System.out.println("Digite seu tempo de contribuição em 2019: ");
+        tempo = scanner.nextInt();
+
+        // Pontuação inicial em 2019
+        int pontosObtidos = tempo + idade;
+        int ano = 2019;
+
+        // Exibe o cabeçalho da tabela
+        System.out.printf("%-5s %-20s %-20s%n", "Ano", "Pontuação Mínima", "Pontuação Obtida");
+        /*
+        Ex.: %-5s:
+            %: Indica o início de um especificador de formato.
+            -: Alinha o texto à esquerda dentro do campo de largura especificado.
+            5: Define a largura mínima do campo para 5 caracteres.
+            s: Especificador de tipo para strings. Indica que o argumento que será inserido aqui é uma string.
+        */
+
+        // Loop até que a pontuação obtida seja maior ou igual à pontuação mínima
+        while (pontosObtidos < pontuacaoMinima && pontosObtidos < pontuacaoMaxima) {
+            System.out.printf("%-5d %-20d %-20d%n", ano, pontuacaoMinima, pontosObtidos);
+            ano++;
+            pontosObtidos += 2; // Aumenta a idade e o tempo de contribuição em 1 cada ano
+            if (pontuacaoMinima < pontuacaoMaxima) {
+                pontuacaoMinima++; // A pontuação mínima também aumenta em 1 a cada ano
+            }
+            // Exibe o ano final, quando a pessoa pode se aposentar
+            System.out.printf("%-5d %-20d %-20d%n", ano, pontuacaoMinima, pontosObtidos);
+
+            scanner.close();
+        }
+    }
+}
